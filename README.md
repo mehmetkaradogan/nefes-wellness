@@ -5,3 +5,7 @@ Karanlık, WebGL tabanlı ruh sağlığı landing page. Three.js (shader ile nef
 Canlı: https://mehmetkaradogan.github.io/nefes-wellness/
 
 Yerelde: `python3 -m http.server` ve http://localhost:8000
+
+## Tasarım kaynakları
+- Figma (design system + canlı site yakalaması): https://www.figma.com/design/wbLUYcHHb4zHwHwBmmMaFl
+- Görseller (`assets/*.webp`): Canva AI ile üretildi.
