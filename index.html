@@ -6,6 +6,13 @@
 <title>Nefes — Zihnin için bir nefes</title>
 <meta name="description" content="Nefes: kaygı, uyku ve odak için kısa, yönlendirmeli ruh sağlığı pratikleri." />
 <meta name="theme-color" content="#070a0b" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Nefes — Zihnin için bir nefes" />
+<meta property="og:description" content="Kaygı, uyku ve odak için kısa, yönlendirmeli ruh sağlığı pratikleri." />
+<meta property="og:url" content="https://mehmetkaradogan.github.io/nefes-wellness/" />
+<meta property="og:image" content="https://mehmetkaradogan.github.io/nefes-wellness/assets/og.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="preload" as="image" href="assets/breath.webp" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -26,6 +33,14 @@
 <canvas id="gl" aria-hidden="true"></canvas>
 <div class="grain" aria-hidden="true"></div>
 <div class="vignette" aria-hidden="true"></div>
+<div class="reveal" aria-hidden="true">
+  <div class="reveal__inner">
+    <img src="assets/breath.webp" alt="" data-key="breath" />
+    <img src="assets/meditation.webp" alt="" data-key="meditation" />
+    <img src="assets/sleep.webp" alt="" data-key="sleep" />
+    <img src="assets/journal.webp" alt="" data-key="journal" />
+  </div>
+</div>
 <div class="cursor" aria-hidden="true"><span class="cursor__dot"></span><span class="cursor__ring"></span></div>
 
 <header class="nav">
@@ -33,6 +48,7 @@
   <nav class="nav__links" aria-label="Ana menü">
     <a href="#manifesto" data-hover>Manifesto</a>
     <a href="#pratikler" data-hover>Pratikler</a>
+    <a href="#gun" data-hover>Bir gün</a>
     <a href="#egzersiz" data-hover>Egzersiz</a>
     <a href="#katil" data-hover>Katıl</a>
   </nav>
@@ -103,9 +119,43 @@
     </ul>
   </section>
 
+
+  <!-- A DAY: pinned horizontal gallery -->
+  <section class="day" id="gun" data-section="day">
+    <div class="day__pin">
+      <div class="day__head">
+        <p class="eyebrow">(03) — Bir gün</p>
+        <h2 class="h2 day__title">Dört an, <em>dört nefes.</em></h2>
+      </div>
+      <div class="day__track">
+        <article class="moment">
+          <div class="moment__media"><img src="assets/breath.webp" alt="Sisli, durgun bir göl üzerinde sabah ışığı" loading="lazy" /></div>
+          <div class="moment__meta"><span class="moment__time">06:40</span><h3>Sabah</h3><p>Telefona uzanmadan önce üç derin nefes. Günün temposunu sen belirle.</p></div>
+        </article>
+        <article class="moment">
+          <div class="moment__media"><img src="assets/meditation.webp" alt="Karanlıkta açılan bir eğrelti filizi" loading="lazy" /></div>
+          <div class="moment__meta"><span class="moment__time">13:15</span><h3>Öğle</h3><p>Beş dakikalık farkındalık molası. Düşünceler gelir, geçer; sen kalırsın.</p></div>
+        </article>
+        <article class="moment">
+          <div class="moment__media"><img src="assets/journal.webp" alt="Akşam ışığında açık bir defter ve fincan" loading="lazy" /></div>
+          <div class="moment__meta"><span class="moment__time">19:30</span><h3>Akşam</h3><p>Tek bir soru: Bugün seni ne yordu, ne besledi?</p></div>
+        </article>
+        <article class="moment">
+          <div class="moment__media"><img src="assets/sleep.webp" alt="Ay ışığının yansıdığı sakin bir gece denizi" loading="lazy" /></div>
+          <div class="moment__meta"><span class="moment__time">23:00</span><h3>Gece</h3><p>Beden taraması ve yavaşlayan bir ses. Uyku kendiliğinden gelir.</p></div>
+        </article>
+        <a class="moment moment--end" href="#egzersiz" data-hover>
+          <span class="eyebrow">Sıradaki</span>
+          <span class="moment__cta">Şimdi bir <em>nefes</em> al <span aria-hidden="true">→</span></span>
+        </a>
+      </div>
+      <div class="day__progress" aria-hidden="true"><span></span></div>
+    </div>
+  </section>
+
   <!-- BREATH EXERCISE -->
   <section class="breath" id="egzersiz" data-section="breath">
-    <p class="eyebrow">(03) — Şimdi dene</p>
+    <p class="eyebrow">(04) — Şimdi dene</p>
     <div class="breath__stage">
       <p class="breath__phase" id="breathPhase" aria-live="polite">4 · 7 · 8</p>
       <p class="breath__count" id="breathCount">&nbsp;</p>
@@ -119,7 +169,7 @@
 
   <!-- CONTACT -->
   <section class="join" id="katil" data-section="join">
-    <p class="eyebrow">(04) — Erken erişim</p>
+    <p class="eyebrow">(05) — Erken erişim</p>
     <h2 class="join__title"><span>Sessizliğe</span> <em>yer aç.</em></h2>
     <form class="join__form" id="joinForm" novalidate>
       <label class="sr-only" for="email">E-posta adresin</label>

@@ -320,12 +320,49 @@ function intro() {
 /* ------------------------------------------------------------------ */
 /* Scroll choreography                                                 */
 /* ------------------------------------------------------------------ */
+function daySection() {
+  const track = document.querySelector('.day__track');
+  const bar = document.querySelector('.day__progress span');
+  const imgs = gsap.utils.toArray('.moment__media img');
+  if (isMobile() || reduceMotion) {
+    imgs.forEach((img) => gsap.fromTo(img, { yPercent: -8 }, {
+      yPercent: 8, ease: 'none',
+      scrollTrigger: { trigger: img.parentElement, start: 'top bottom', end: 'bottom top', scrub: true },
+    }));
+    return;
+  }
+  const distance = () => Math.max(0, track.scrollWidth - window.innerWidth);
+  const slide = gsap.to(track, {
+    x: () => -distance(), ease: 'none',
+    scrollTrigger: {
+      trigger: '.day', pin: true, start: 'top top', end: () => '+=' + distance(),
+      scrub: 1, invalidateOnRefresh: true,
+      onUpdate: (self) => { bar.style.transform = `scaleX(${self.progress})`; },
+    },
+  });
+  // parallax inside each frame, driven by the horizontal motion
+  imgs.forEach((img) => {
+    gsap.fromTo(img, { xPercent: -10 }, {
+      xPercent: 10, ease: 'none',
+      scrollTrigger: { trigger: img.parentElement, containerAnimation: slide, start: 'left right', end: 'right left', scrub: true },
+    });
+  });
+  gsap.utils.toArray('.moment__meta').forEach((m) => {
+    gsap.from(m.children, {
+      y: 40, opacity: 0, stagger: 0.08, duration: 1, ease: 'expo.out',
+      scrollTrigger: { trigger: m, containerAnimation: slide, start: 'left 85%' },
+    });
+  });
+}
+
 function scrollScenes() {
+  daySection();
   // One scrubbed timeline for the whole page: time == scroll pixels, so
   // each section hands the form to a new pose without tween conflicts.
   const poses = [
     ['.manifesto', { x: 2.2, y: 0.2, scale: 0.72, distort: 0.36, rotY: 1.2 }],
-    ['.practices', { x: -2.4, y: -0.1, scale: 0.78, distort: 0.28, rotY: 2.4 }],
+    ['.practices', { x: -3.1, y: -0.2, scale: 0.6, distort: 0.28, rotY: 2.4 }],
+    ['.day',       { x: -3.7, y: 1.3, scale: 0.28, distort: 0.4, rotY: 3.0 }],
     ['.breath',    { x: 0, y: 0.05, scale: 0.8, distort: 0.2, rotY: 3.4 }],
     ['.join',      { x: 1.9, y: -0.4, scale: 0.6, distort: 0.45, rotY: 4.6 }],
   ];
@@ -334,7 +371,8 @@ function scrollScenes() {
     const max = Math.max(1, document.documentElement.scrollHeight - vh);
     const tl = gsap.timeline({ paused: true, defaults: { ease: 'sine.inOut' } });
     poses.forEach(([sel, pose]) => {
-      const top = document.querySelector(sel).offsetTop;
+      const el = document.querySelector(sel);
+      const top = (el.parentElement.classList.contains('pin-spacer') ? el.parentElement : el).getBoundingClientRect().top + window.scrollY;
       const start = Math.max(0, top - vh);
       const end = Math.min(max, top - vh * 0.15);
       tl.to(state, { ...pose, duration: Math.max(1, end - start) }, start);
@@ -389,7 +427,33 @@ document.querySelectorAll('.practice').forEach((row) => {
     document.querySelectorAll('.practice').forEach((r) => r.classList.toggle('is-active', r === row));
   });
 });
-document.querySelector('.practices__list').addEventListener('pointerleave', () => {
+// cursor-following image reveal
+const reveal = document.querySelector('.reveal');
+const revealImgs = [...reveal.querySelectorAll('img')];
+const rv = { x: 0, y: 0, tx: 0, ty: 0, vx: 0 };
+const list = document.querySelector('.practices__list');
+list.addEventListener('pointermove', (e) => { rv.tx = e.clientX; rv.ty = e.clientY; });
+list.addEventListener('pointerenter', (e) => {
+  rv.x = rv.tx = e.clientX; rv.y = rv.ty = e.clientY;
+  gsap.to(reveal, { opacity: 1, duration: 0.5, ease: 'power2.out' });
+});
+document.querySelectorAll('.practice').forEach((row) => {
+  row.addEventListener('pointerenter', () => {
+    revealImgs.forEach((img) => img.classList.toggle('on', img.dataset.key === row.dataset.palette));
+  });
+});
+gsap.ticker.add(() => {
+  const dx = rv.tx - rv.x;
+  rv.x += dx * 0.12;
+  rv.y += (rv.ty - rv.y) * 0.12;
+  rv.vx += (dx * 0.04 - rv.vx) * 0.2;
+  const rot = Math.max(-12, Math.min(12, rv.vx));
+  reveal.style.transform = `translate(${rv.x}px, ${rv.y}px) rotate(${rot}deg)`;
+});
+
+list.addEventListener('pointerleave', () => {
+  gsap.to(reveal, { opacity: 0, duration: 0.4, ease: 'power2.out' });
+  revealImgs.forEach((img) => img.classList.remove('on'));
   setPalette('base');
   document.querySelectorAll('.practice').forEach((r) => r.classList.remove('is-active'));
 });
