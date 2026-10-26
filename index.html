@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Nefes — Zihnin için bir nefes</title>
+<meta name="description" content="Nefes: kaygı, uyku ve odak için kısa, yönlendirmeli ruh sağlığı pratikleri." />
+<meta name="theme-color" content="#070a0b" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='11' fill='%23f4b393'/></svg>" />
+</head>
+<body class="is-loading">
+
+<!-- Loader -->
+<div class="loader" aria-hidden="true">
+  <div class="loader__inner">
+    <span class="loader__word">nefes al</span>
+    <span class="loader__count"><span id="loadCount">0</span></span>
+  </div>
+  <div class="loader__bar"><span></span></div>
+</div>
+
+<canvas id="gl" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+<div class="cursor" aria-hidden="true"><span class="cursor__dot"></span><span class="cursor__ring"></span></div>
+
+<header class="nav">
+  <a href="#top" class="nav__logo" data-hover>nefes<sup>®</sup></a>
+  <nav class="nav__links" aria-label="Ana menü">
+    <a href="#manifesto" data-hover>Manifesto</a>
+    <a href="#pratikler" data-hover>Pratikler</a>
+    <a href="#egzersiz" data-hover>Egzersiz</a>
+    <a href="#katil" data-hover>Katıl</a>
+  </nav>
+  <a href="#katil" class="nav__cta" data-hover><span>Erken erişim</span></a>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero" data-section="hero">
+    <div class="hero__meta">
+      <span>Ruh sağlığı pratikleri</span>
+      <span>Günde birkaç dakika</span>
+      <span>Est. 2026</span>
+    </div>
+    <h1 class="hero__title">
+      <span class="line"><span>Zihnin için</span></span>
+      <span class="line"><span><em>bir nefes.</em></span></span>
+    </h1>
+    <div class="hero__foot">
+      <p class="hero__lead reveal-up">Kaygı, uyku ve odak için kısa, yönlendirmeli pratikler. Zihnini susturmaya çalışmadan, onu izlemeyi öğren.</p>
+      <div class="hero__scroll reveal-up"><span class="hero__scroll-line"></span>Kaydır</div>
+    </div>
+  </section>
+
+  <!-- MANIFESTO -->
+  <section class="manifesto" id="manifesto" data-section="manifesto">
+    <p class="eyebrow">(01) — Manifesto</p>
+    <p class="manifesto__text" data-split>
+      Zihin bir okyanus gibidir. Bazı günler dalgalı, bazı günler durgun. Nefes, dalgaları durdurmak için değil; onların üzerinde nasıl kalacağını öğrenmen için tasarlandı. Her gün birkaç dakika. Yargı yok, acele yok. Sadece sen ve nefesin.
+    </p>
+    <div class="manifesto__aside">
+      <p>Bilimsel temelli nefes teknikleri, farkındalık ve uyku rutinleri tek, sakin bir alanda.</p>
+    </div>
+  </section>
+
+  <!-- PRACTICES -->
+  <section class="practices" id="pratikler" data-section="practices">
+    <div class="practices__head">
+      <p class="eyebrow">(02) — Pratikler</p>
+      <h2 class="h2">Dört kapı, <em>tek sessizlik.</em></h2>
+    </div>
+    <ul class="practices__list">
+      <li class="practice" data-palette="breath" data-hover>
+        <span class="practice__no">01</span>
+        <span class="practice__title">Nefes</span>
+        <span class="practice__desc">Kaygı yükseldiğinde, iki dakikalık yönlendirmeli nefes ile bedenini sakinleştir.</span>
+        <span class="practice__time">2–10 dk</span>
+      </li>
+      <li class="practice" data-palette="meditation" data-hover>
+        <span class="practice__no">02</span>
+        <span class="practice__title">Farkındalık</span>
+        <span class="practice__desc">Düşüncelerini değiştirmeden fark etmeyi öğreten sesli meditasyonlar.</span>
+        <span class="practice__time">5–20 dk</span>
+      </li>
+      <li class="practice" data-palette="sleep" data-hover>
+        <span class="practice__no">03</span>
+        <span class="practice__title">Uyku</span>
+        <span class="practice__desc">Günü kapatan yavaş ritimler, beden taraması ve uyku hikâyeleri.</span>
+        <span class="practice__time">10–45 dk</span>
+      </li>
+      <li class="practice" data-palette="journal" data-hover>
+        <span class="practice__no">04</span>
+        <span class="practice__title">Günlük</span>
+        <span class="practice__desc">Tek soruluk akşam notlarıyla ruh hâlini zaman içinde gözlemle.</span>
+        <span class="practice__time">3 dk</span>
+      </li>
+    </ul>
+  </section>
+
+  <!-- BREATH EXERCISE -->
+  <section class="breath" id="egzersiz" data-section="breath">
+    <p class="eyebrow">(03) — Şimdi dene</p>
+    <div class="breath__stage">
+      <p class="breath__phase" id="breathPhase" aria-live="polite">4 · 7 · 8</p>
+      <p class="breath__count" id="breathCount">&nbsp;</p>
+    </div>
+    <div class="breath__ui">
+      <p class="breath__info" id="breathInfo">Dört saniye nefes al, yedi saniye tut, sekiz saniye ver. Dört döngü, bir dakikadan biraz fazla.</p>
+      <button class="btn" id="breathBtn" data-hover><span>Egzersizi başlat</span></button>
+      <div class="breath__dots" id="breathDots" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="join" id="katil" data-section="join">
+    <p class="eyebrow">(04) — Erken erişim</p>
+    <h2 class="join__title"><span>Sessizliğe</span> <em>yer aç.</em></h2>
+    <form class="join__form" id="joinForm" novalidate>
+      <label class="sr-only" for="email">E-posta adresin</label>
+      <input id="email" name="email" type="email" placeholder="e-posta adresin" autocomplete="email" required />
+      <button type="submit" class="join__submit" data-hover aria-label="Listeye katıl">
+        <span>Listeye katıl</span>
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+      </button>
+      <p class="join__msg" id="joinMsg" aria-live="polite"></p>
+    </form>
+    <div class="join__contact">
+      <div><span class="eyebrow">İletişim</span><a href="mailto:merhaba@nefes.app" data-hover>merhaba@nefes.app</a></div>
+      <div><span class="eyebrow">Takip et</span><span class="join__links"><a href="#" data-hover>Instagram</a><a href="#" data-hover>Spotify</a></span></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <p class="footer__care">Nefes profesyonel destek yerine geçmez. Kendini güvende hissetmiyorsan <strong>112</strong>’yi ara ya da bir ruh sağlığı uzmanına başvur.</p>
+  <div class="footer__row">
+    <span>© 2026 Nefes</span>
+    <a href="#top" data-hover>Başa dön ↑</a>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script type="importmap">
+{ "imports": { "three": "https://unpkg.com/three@0.160.0/build/three.module.js" } }
+</script>
+<script type="module" src="main.js"></script>
+</body>
+</html>
